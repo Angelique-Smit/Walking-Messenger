@@ -8,6 +8,9 @@ import { StyleSheet, View, Text } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import * as Location from 'expo-location';
 
+//Local imports
+import getData from "../components/api.js"
+
 // Create the Map const (called AppMap since Map was already something else within JavaScript)
 const AppMap = () => {
     const [location, setLocation] = useState(null);
@@ -42,6 +45,27 @@ const AppMap = () => {
             }
         };
     }, []);
+
+    // const fetchJson = async () => {
+    //     try {
+    //         const data = await getData();
+    //         return data;
+    //     } catch (error) {
+    //         console.error("Error fetching data:", error);
+    //         throw error; 
+    //     }
+    // };
+    
+
+    // fetchJson()
+    //     .then(data => {
+    //         console.log("JSON Data:", data.character1.messages.messageScenario1.coords.latitude);
+    //     })
+    //     .catch(error => {
+    //         console.error("Error fetching character messages:", error);
+    // });
+    
+
 
     let text = 'Waiting..';
 

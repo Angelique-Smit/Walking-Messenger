@@ -1,16 +1,44 @@
-//React imports
-import { useState, useEffect } from 'react';
-import { Button, StyleSheet, Text, View} from "react-native"
-
-//Expo imports
+// Local Imports
+import React, { useContext } from 'react'
+import { Text, StyleSheet, View, Button } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
+import { ThemeContext } from '../styling/colortheme.js'; 
 
-const Settings = () => {
+// Functions checks for light or dark mode and exports the settings view
+export default function Settings() {
+    const { isDarkMode, toggleTheme } = useContext(ThemeContext);
+
+    const themeTextStyle = isDarkMode ? styles.darkThemeText : styles.lightThemeText;
+    const themeContainerStyle = isDarkMode ? styles.darkContainer : styles.lightContainer;
+
     return (
-        <View>
-            <Text>Hi I am the settings page</Text>
+        <View style={[styles.container, themeContainerStyle]}>
+            <Text style={[styles.text, themeTextStyle]}>Color scheme: {isDarkMode ? 'dark' : 'light'}</Text>
+            <Button title="Toggle Theme" onPress={toggleTheme} />
+            <StatusBar style={isDarkMode ? 'light' : 'dark'} />
         </View>
-    )
+    );
 }
 
-export default Settings;
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    text: {
+        fontSize: 20,
+    },
+    lightContainer: {
+        backgroundColor: '#d0d0c0',
+    },
+    darkContainer: {
+        backgroundColor: '#242c40',
+    },
+    lightThemeText: {
+        color: '#242c40',
+    },
+    darkThemeText: {
+        color: '#d0d0c0',
+    },
+});

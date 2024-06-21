@@ -1,13 +1,19 @@
-// Import all the components
-import  NavigationScreen  from './app/components/navigation.js';
+// In App.js in a new project
+
+import * as React from 'react';
+
+import {ThemeProvider} from './app/styling/colortheme.js';
+import NavigationScreen from "./app/components/navigation.js";
 
 
-// Initiate the actual app
-function App () {
-  return (
-    <NavigationScreen>
-    </NavigationScreen>
-  );
+function App() {
+
+    return (
+        <ThemeProvider>
+        <NavigationScreen>
+        </NavigationScreen>
+        </ThemeProvider>
+    );
 }
 
 export default App;

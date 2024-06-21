@@ -1,6 +1,7 @@
 const getData = async () => {
 
     // Put URL of JSON data inside a variable so its easily changable
+    // This URL is a JSON file in a git repository on my own github. It is online.
     const url = "https://angelique-smit.github.io/json-for-app/characters.json"
 
     //Retreiving the JSON data inside a try/catch to make it easy to see if something is failing.
@@ -19,7 +20,7 @@ const getData = async () => {
         return data;
     } 
     
-    //My failsafe in case the try fails me :(
+    // My failsafe in case the try fails me 
     catch (error) {
         console.error("Error fetching data:", error);
         //This makes sure the error also gets inside the react component

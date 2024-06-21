@@ -1,11 +1,11 @@
+// React Imports
 import * as React from 'react';
 import { DarkTheme, DefaultTheme, NavigationContainer } from "@react-navigation/native";
 import { useContext } from "react";
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { Button, StyleSheet, View, Image } from "react-native";
+import { StyleSheet, View, Image, TouchableOpacity, Text } from "react-native";
 
 // Local Imports
-import Home from "../pages/home";
 import AppMap from "../pages/map";
 import ChatHistory from "../pages/chat-history";
 import Settings from "../pages/settings";
@@ -15,32 +15,45 @@ import DetailScreen from '../pages/detail.js';
 // Creates the Stack Navigator
 const Stack = createNativeStackNavigator();
 
-// Actual view of the navigator
+// Actual view of the navigator, includes touchableOpacity as button for styling purposes. Navigates to certain page components
 function NavigationPage({ navigation }) {
+    // Initiazes isDarkMode
     const { isDarkMode } = useContext(ThemeContext);
-
     return (
-        <View style={[styles.flexColumn, isDarkMode && styles.darkContainer]}>
+        <View style={styles.flexColumn}>
             <Image style={styles.background} source={require('../pic/backdrop.jpg')} />
-            <View style={[styles.flexRow, isDarkMode && styles.darkContainer]}>
-                <Button title="Homepage" onPress={() => navigation.navigate('Home')} />
-                <Button title="See the map" onPress={() => navigation.navigate('Map')} />
-                <Button title="See chats" onPress={() => navigation.navigate('Chat')} />
-                <Button title="Settings" onPress={() => navigation.navigate('Settings')} />
+            <View style={styles.flexRow}>
+                <TouchableOpacity
+                    style={[styles.button, isDarkMode ? styles.darkButton : styles.lightButton]}
+                    onPress={() => navigation.navigate('Map')}
+                >
+                    <Text style={isDarkMode ? styles.darkButtonText : styles.lightButtonText}>See the map</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                    style={[styles.button, isDarkMode ? styles.darkButton : styles.lightButton]}
+                    onPress={() => navigation.navigate('Chat')}
+                >
+                    <Text style={isDarkMode ? styles.darkButtonText : styles.lightButtonText}>See chats</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                    style={[styles.button, isDarkMode ? styles.darkButton : styles.lightButton]}
+                    onPress={() => navigation.navigate('Settings')}
+                >
+                    <Text style={isDarkMode ? styles.darkButtonText : styles.lightButtonText}>Settings</Text>
+                </TouchableOpacity>
             </View>
         </View>
     );
 }
 
-// Navigator
+// Navigator that has the name and component inside
 export default function NavigationScreen() {
+    // Initiazes iDarkMode so the nav bar displays as light/dark
     const { isDarkMode } = useContext(ThemeContext);
-
     return (
         <NavigationContainer theme={isDarkMode ? DarkTheme : DefaultTheme}>
             <Stack.Navigator initialRouteName="Navigation">
                 <Stack.Screen name="Navigation" component={NavigationPage} />
-                <Stack.Screen name="Home" component={Home} />
                 <Stack.Screen name="Map" component={AppMap} />
                 <Stack.Screen name="Chat" component={ChatHistory} />
                 <Stack.Screen name="Settings" component={Settings} />
@@ -50,7 +63,7 @@ export default function NavigationScreen() {
     );
 }
 
-// Styling
+// Styling with stylesheet
 const styles = StyleSheet.create({
     flexRow: {
         flex: 1,
@@ -78,5 +91,26 @@ const styles = StyleSheet.create({
     },
     darkContainer: {
         backgroundColor: '#242c40',
+    },
+    button: {
+        paddingVertical: 10,
+        paddingHorizontal: 20,
+        borderRadius: 25,
+    },
+    lightButton: {
+        backgroundColor: '#ffffff',
+        borderColor: '#000000',
+        borderWidth: 1,
+    },
+    darkButton: {
+        backgroundColor: '#444444',
+        borderColor: '#ffffff',
+        borderWidth: 1,
+    },
+    lightButtonText: {
+        color: '#000000',
+    },
+    darkButtonText: {
+        color: '#ffffff',
     },
 });

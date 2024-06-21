@@ -35,17 +35,21 @@ export const ThemeProvider = ({ children }) => {
             try {
                 await AsyncStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
             } catch (error) {
+                // Gives an error if saving fails
                 console.error('Failed to save theme:', error);
             }
         };
-
+        // Starts the function inside saveTheme
         saveTheme();
+        // Activates everytime isDarkMode is triggered
     }, [isDarkMode]);
 
+    // When the toggle button is pressed, it goes back to the previous stage (from light to dark or dark to light) to toggle between the two modes
     const toggleTheme = () => {
         setIsDarkMode(previousState => !previousState);
     };
 
+    // Returns the view based on isDarkMode with the children elements inside
     return (
         <ThemeContext.Provider value={{ isDarkMode, toggleTheme }}>
             {children}
